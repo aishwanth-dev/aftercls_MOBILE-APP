@@ -3,11 +3,15 @@ set -eux
 
 # Install Flutter SDK (Linux x64)
 FLUTTER_DIR="$PWD/flutter"
+# Allow pinning Flutter version via env, default to a recent stable
+FLUTTER_VERSION="${FLUTTER_VERSION:-3.35.4}"
+FLUTTER_TAR_URL="https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${FLUTTER_VERSION}-stable.tar.xz"
+
 if [ ! -d "$FLUTTER_DIR" ]; then
   if command -v curl >/dev/null 2>&1; then
-    curl -L https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.24.4-stable.tar.xz -o flutter.tar.xz
+    curl -L "$FLUTTER_TAR_URL" -o flutter.tar.xz
   elif command -v wget >/dev/null 2>&1; then
-    wget -O flutter.tar.xz https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.24.4-stable.tar.xz
+    wget -O flutter.tar.xz "$FLUTTER_TAR_URL"
   else
     echo "Error: neither curl nor wget is available" >&2
     exit 127
