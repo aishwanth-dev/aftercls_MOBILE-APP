@@ -491,7 +491,7 @@
       "name": "campus_pulse",
       "rootUri": "../",
       "packageUri": "lib/",
-      "languageVersion": "3.6"
+      "languageVersion": "3.5"
     }
   ],
   "generator": "pub",
