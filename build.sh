@@ -1,19 +1,27 @@
-#!/usr/bin/env bash
-set -euxo pipefail
+#!/usr/bin/env sh
+set -eux
 
 # Install Flutter SDK (Linux x64)
 FLUTTER_DIR="$PWD/flutter"
 if [ ! -d "$FLUTTER_DIR" ]; then
-  curl -L https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.24.4-stable.tar.xz -o flutter.tar.xz
+  if command -v curl >/dev/null 2>&1; then
+    curl -L https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.24.4-stable.tar.xz -o flutter.tar.xz
+  elif command -v wget >/dev/null 2>&1; then
+    wget -O flutter.tar.xz https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.24.4-stable.tar.xz
+  else
+    echo "Error: neither curl nor wget is available" >&2
+    exit 127
+  fi
   tar -xf flutter.tar.xz
 fi
 
 # Ensure flutter binary is on PATH
 export PATH="$FLUTTER_DIR/bin:$PATH"
-chmod +x "$FLUTTER_DIR/bin/flutter" || true
 export CI=true
-# Silence git's ownership checks inside Vercel's build environment
-git config --global --add safe.directory "$FLUTTER_DIR" || true
+# Silence git's ownership checks inside Vercel's build environment (if git exists)
+if command -v git >/dev/null 2>&1; then
+  git config --global --add safe.directory "$FLUTTER_DIR" || true
+fi
 "$FLUTTER_DIR/bin/flutter" --version
 "$FLUTTER_DIR/bin/flutter" config --no-analytics
 "$FLUTTER_DIR/bin/flutter" config --enable-web
