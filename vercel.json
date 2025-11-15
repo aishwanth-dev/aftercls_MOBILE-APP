@@ -2,10 +2,9 @@
   "version": 2,
   "builds": [
     {
-      "src": "web/index.html",
+      "src": "build.sh",
       "use": "@vercel/static-build",
       "config": {
-        "buildCommand": "flutter build web --release",
         "outputDirectory": "build/web"
       }
     }
