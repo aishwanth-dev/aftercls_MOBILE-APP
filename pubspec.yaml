@@ -1,0 +1,44 @@
+name: campus_pulse
+description: "Swipzee is the ultimate college social app, where you can swipe to rate classmates, discover mutual crushes, and climb leaderboards through fun challenges – all in a secure, student-only network designed for viral engagement!"
+publish_to: "none"
+version: 1.0.0
+
+environment:
+  sdk: ^3.6.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  google_fonts: ^6.1.0
+  shared_preferences: ^2.0.0
+  image_picker: '>=1.1.2'
+  provider: ^6.0.0
+  crypto: ^3.0.0
+  http: ^1.1.0
+  flutter_card_swiper: ^3.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.13.1
+  vercel: ^0.1.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/icons/
+    - assets/icons-images/laughing Tears Emoji.png
+    - assets/icons-images/Heart Eyes Emoji.png
+    - assets/icons-images/Hot Emoji.png
+    - assets/icons-images/Broken Red Heart Emoji.png
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: assets/icons/dreamflow_icon.png
+  remove_alpha_ios: true
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware

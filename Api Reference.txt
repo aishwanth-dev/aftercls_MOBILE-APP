@@ -1,0 +1,1921 @@
+# Upload Object with Auto-Generated Key
+
+## OpenAPI
+
+````yaml api-reference/storage.yaml post /api/storage/buckets/{bucketName}/objects
+paths:
+  path: /api/storage/buckets/{bucketName}/objects
+  method: post
+  request:
+    security:
+      - title: apiKey
+        parameters:
+          query: {}
+          header:
+            x-api-key:
+              type: apiKey
+          cookie: {}
+    parameters:
+      path:
+        bucketName:
+          schema:
+            - type: string
+              required: true
+      query: {}
+      header: {}
+      cookie: {}
+    body:
+      multipart/form-data:
+        schemaArray:
+          - type: object
+            properties:
+              file:
+                allOf:
+                  - type: string
+                    format: binary
+                    description: File to upload
+            required: true
+            requiredProperties:
+              - file
+        examples:
+          example:
+            value: {}
+  response:
+    '201':
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              bucket:
+                allOf:
+                  - type: string
+                    example: avatars
+                    description: Name of the bucket containing the object
+              key:
+                allOf:
+                  - type: string
+                    example: user123.jpg
+                    description: Unique key identifying the object within the bucket
+              size:
+                allOf:
+                  - type: integer
+                    example: 102400
+                    description: Size of the file in bytes
+              mimeType:
+                allOf:
+                  - type: string
+                    example: image/jpeg
+                    description: MIME type of the file
+              uploadedAt:
+                allOf:
+                  - type: string
+                    format: date-time
+                    example: '2024-01-15T10:30:00Z'
+                    description: ISO timestamp when the file was uploaded
+              url:
+                allOf:
+                  - type: string
+                    example: /api/storage/buckets/avatars/objects/user123.jpg
+                    description: URL to download the file
+            refIdentifier: '#/components/schemas/StoredFile'
+            requiredProperties:
+              - bucket
+              - key
+              - size
+              - uploadedAt
+              - url
+        examples:
+          example:
+            value:
+              bucket: avatars
+              key: image-1737546841234-a3f2b1.jpg
+              size: 102400
+              mimeType: image/jpeg
+              uploadedAt: '2024-01-21T10:30:00Z'
+              url: >-
+                /api/storage/buckets/avatars/objects/image-1737546841234-a3f2b1.jpg
+        description: Object uploaded successfully with auto-generated key
+    '400':
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              error:
+                allOf:
+                  - &ref_0
+                    type: string
+                    description: Error code for programmatic handling
+                    example: VALIDATION_ERROR
+              message:
+                allOf:
+                  - &ref_1
+                    type: string
+                    description: Human-readable error message
+                    example: Invalid request
+              statusCode:
+                allOf:
+                  - &ref_2
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+              nextActions:
+                allOf:
+                  - &ref_3
+                    type: string
+                    description: Suggested action to resolve the error
+                    example: Check your request parameters
+            refIdentifier: '#/components/schemas/ErrorResponse'
+            requiredProperties: &ref_4
+              - error
+              - message
+              - statusCode
+        examples:
+          example:
+            value:
+              error: INVALID_FILE
+              message: No file provided in the request
+              statusCode: 400
+              nextActions: Include a file in the multipart form data
+        description: Invalid bucket name or file
+    '404':
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              error:
+                allOf:
+                  - *ref_0
+              message:
+                allOf:
+                  - *ref_1
+              statusCode:
+                allOf:
+                  - *ref_2
+              nextActions:
+                allOf:
+                  - *ref_3
+            refIdentifier: '#/components/schemas/ErrorResponse'
+            requiredProperties: *ref_4
+        examples:
+          example:
+            value:
+              error: BUCKET_NOT_FOUND
+              message: Bucket 'nonexistent' does not exist
+              statusCode: 404
+              nextActions: Create the bucket first
+        description: Bucket not found
+  deprecated: false
+  type: path
+components:
+  schemas: {}
+
+````
+
+# Upload Object with Auto-Generated Key
+
+## OpenAPI
+
+````yaml api-reference/storage.yaml post /api/storage/buckets/{bucketName}/objects
+paths:
+  path: /api/storage/buckets/{bucketName}/objects
+  method: post
+  request:
+    security:
+      - title: apiKey
+        parameters:
+          query: {}
+          header:
+            x-api-key:
+              type: apiKey
+          cookie: {}
+    parameters:
+      path:
+        bucketName:
+          schema:
+            - type: string
+              required: true
+      query: {}
+      header: {}
+      cookie: {}
+    body:
+      multipart/form-data:
+        schemaArray:
+          - type: object
+            properties:
+              file:
+                allOf:
+                  - type: string
+                    format: binary
+                    description: File to upload
+            required: true
+            requiredProperties:
+              - file
+        examples:
+          example:
+            value: {}
+  response:
+    '201':
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              bucket:
+                allOf:
+                  - type: string
+                    example: avatars
+                    description: Name of the bucket containing the object
+              key:
+                allOf:
+                  - type: string
+                    example: user123.jpg
+                    description: Unique key identifying the object within the bucket
+              size:
+                allOf:
+                  - type: integer
+                    example: 102400
+                    description: Size of the file in bytes
+              mimeType:
+                allOf:
+                  - type: string
+                    example: image/jpeg
+                    description: MIME type of the file
+              uploadedAt:
+                allOf:
+                  - type: string
+                    format: date-time
+                    example: '2024-01-15T10:30:00Z'
+                    description: ISO timestamp when the file was uploaded
+              url:
+                allOf:
+                  - type: string
+                    example: /api/storage/buckets/avatars/objects/user123.jpg
+                    description: URL to download the file
+            refIdentifier: '#/components/schemas/StoredFile'
+            requiredProperties:
+              - bucket
+              - key
+              - size
+              - uploadedAt
+              - url
+        examples:
+          example:
+            value:
+              bucket: avatars
+              key: image-1737546841234-a3f2b1.jpg
+              size: 102400
+              mimeType: image/jpeg
+              uploadedAt: '2024-01-21T10:30:00Z'
+              url: >-
+                /api/storage/buckets/avatars/objects/image-1737546841234-a3f2b1.jpg
+        description: Object uploaded successfully with auto-generated key
+    '400':
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              error:
+                allOf:
+                  - &ref_0
+                    type: string
+                    description: Error code for programmatic handling
+                    example: VALIDATION_ERROR
+              message:
+                allOf:
+                  - &ref_1
+                    type: string
+                    description: Human-readable error message
+                    example: Invalid request
+              statusCode:
+                allOf:
+                  - &ref_2
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+              nextActions:
+                allOf:
+                  - &ref_3
+                    type: string
+                    description: Suggested action to resolve the error
+                    example: Check your request parameters
+            refIdentifier: '#/components/schemas/ErrorResponse'
+            requiredProperties: &ref_4
+              - error
+              - message
+              - statusCode
+        examples:
+          example:
+            value:
+              error: INVALID_FILE
+              message: No file provided in the request
+              statusCode: 400
+              nextActions: Include a file in the multipart form data
+        description: Invalid bucket name or file
+    '404':
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              error:
+                allOf:
+                  - *ref_0
+              message:
+                allOf:
+                  - *ref_1
+              statusCode:
+                allOf:
+                  - *ref_2
+              nextActions:
+                allOf:
+                  - *ref_3
+            refIdentifier: '#/components/schemas/ErrorResponse'
+            requiredProperties: *ref_4
+        examples:
+          example:
+            value:
+              error: BUCKET_NOT_FOUND
+              message: Bucket 'nonexistent' does not exist
+              statusCode: 404
+              nextActions: Create the bucket first
+        description: Bucket not found
+  deprecated: false
+  type: path
+components:
+  schemas: {}
+
+````
+
+# Download Object
+
+## OpenAPI
+
+````yaml api-reference/storage.yaml get /api/storage/buckets/{bucketName}/objects/{objectKey}
+paths:
+  path: /api/storage/buckets/{bucketName}/objects/{objectKey}
+  method: get
+  request:
+    security:
+      - title: apiKey
+        parameters:
+          query: {}
+          header:
+            x-api-key:
+              type: apiKey
+          cookie: {}
+    parameters:
+      path:
+        bucketName:
+          schema:
+            - type: string
+              required: true
+        key:
+          schema:
+            - type: string
+              required: true
+      query: {}
+      header: {}
+      cookie: {}
+    body: {}
+  response:
+    '200':
+      '*/*':
+        schemaArray:
+          - type: file
+            contentEncoding: binary
+        examples:
+          example: {}
+        description: File content
+    '404':
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              error:
+                allOf:
+                  - type: string
+                    description: Error code for programmatic handling
+                    example: VALIDATION_ERROR
+              message:
+                allOf:
+                  - type: string
+                    description: Human-readable error message
+                    example: Invalid request
+              statusCode:
+                allOf:
+                  - type: integer
+                    description: HTTP status code
+                    example: 400
+              nextActions:
+                allOf:
+                  - type: string
+                    description: Suggested action to resolve the error
+                    example: Check your request parameters
+            refIdentifier: '#/components/schemas/ErrorResponse'
+            requiredProperties:
+              - error
+              - message
+              - statusCode
+        examples:
+          example:
+            value:
+              error: OBJECT_NOT_FOUND
+              message: Object 'user123.jpg' not found in bucket 'avatars'
+              statusCode: 404
+              nextActions: Check the bucket and key combination
+        description: Object not found
+  deprecated: false
+  type: path
+components:
+  schemas: {}
+
+````
+
+# Download Object
+
+## OpenAPI
+
+````yaml api-reference/storage.yaml get /api/storage/buckets/{bucketName}/objects/{objectKey}
+paths:
+  path: /api/storage/buckets/{bucketName}/objects/{objectKey}
+  method: get
+  request:
+    security:
+      - title: apiKey
+        parameters:
+          query: {}
+          header:
+            x-api-key:
+              type: apiKey
+          cookie: {}
+    parameters:
+      path:
+        bucketName:
+          schema:
+            - type: string
+              required: true
+        key:
+          schema:
+            - type: string
+              required: true
+      query: {}
+      header: {}
+      cookie: {}
+    body: {}
+  response:
+    '200':
+      '*/*':
+        schemaArray:
+          - type: file
+            contentEncoding: binary
+        examples:
+          example: {}
+        description: File content
+    '404':
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              error:
+                allOf:
+                  - type: string
+                    description: Error code for programmatic handling
+                    example: VALIDATION_ERROR
+              message:
+                allOf:
+                  - type: string
+                    description: Human-readable error message
+                    example: Invalid request
+              statusCode:
+                allOf:
+                  - type: integer
+                    description: HTTP status code
+                    example: 400
+              nextActions:
+                allOf:
+                  - type: string
+                    description: Suggested action to resolve the error
+                    example: Check your request parameters
+            refIdentifier: '#/components/schemas/ErrorResponse'
+            requiredProperties:
+              - error
+              - message
+              - statusCode
+        examples:
+          example:
+            value:
+              error: OBJECT_NOT_FOUND
+              message: Object 'user123.jpg' not found in bucket 'avatars'
+              statusCode: 404
+              nextActions: Check the bucket and key combination
+        description: Object not found
+  deprecated: false
+  type: path
+components:
+  schemas: {}
+
+````
+
+# Download Object
+
+## OpenAPI
+
+````yaml api-reference/storage.yaml get /api/storage/buckets/{bucketName}/objects/{objectKey}
+paths:
+  path: /api/storage/buckets/{bucketName}/objects/{objectKey}
+  method: get
+  request:
+    security:
+      - title: apiKey
+        parameters:
+          query: {}
+          header:
+            x-api-key:
+              type: apiKey
+          cookie: {}
+    parameters:
+      path:
+        bucketName:
+          schema:
+            - type: string
+              required: true
+        key:
+          schema:
+            - type: string
+              required: true
+      query: {}
+      header: {}
+      cookie: {}
+    body: {}
+  response:
+    '200':
+      '*/*':
+        schemaArray:
+          - type: file
+            contentEncoding: binary
+        examples:
+          example: {}
+        description: File content
+    '404':
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              error:
+                allOf:
+                  - type: string
+                    description: Error code for programmatic handling
+                    example: VALIDATION_ERROR
+              message:
+                allOf:
+                  - type: string
+                    description: Human-readable error message
+                    example: Invalid request
+              statusCode:
+                allOf:
+                  - type: integer
+                    description: HTTP status code
+                    example: 400
+              nextActions:
+                allOf:
+                  - type: string
+                    description: Suggested action to resolve the error
+                    example: Check your request parameters
+            refIdentifier: '#/components/schemas/ErrorResponse'
+            requiredProperties:
+              - error
+              - message
+              - statusCode
+        examples:
+          example:
+            value:
+              error: OBJECT_NOT_FOUND
+              message: Object 'user123.jpg' not found in bucket 'avatars'
+              statusCode: 404
+              nextActions: Check the bucket and key combination
+        description: Object not found
+  deprecated: false
+  type: path
+components:
+  schemas: {}
+
+````
+
+# Download Object
+
+## OpenAPI
+
+````yaml api-reference/storage.yaml get /api/storage/buckets/{bucketName}/objects/{objectKey}
+paths:
+  path: /api/storage/buckets/{bucketName}/objects/{objectKey}
+  method: get
+  request:
+    security:
+      - title: apiKey
+        parameters:
+          query: {}
+          header:
+            x-api-key:
+              type: apiKey
+          cookie: {}
+    parameters:
+      path:
+        bucketName:
+          schema:
+            - type: string
+              required: true
+        key:
+          schema:
+            - type: string
+              required: true
+      query: {}
+      header: {}
+      cookie: {}
+    body: {}
+  response:
+    '200':
+      '*/*':
+        schemaArray:
+          - type: file
+            contentEncoding: binary
+        examples:
+          example: {}
+        description: File content
+    '404':
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              error:
+                allOf:
+                  - type: string
+                    description: Error code for programmatic handling
+                    example: VALIDATION_ERROR
+              message:
+                allOf:
+                  - type: string
+                    description: Human-readable error message
+                    example: Invalid request
+              statusCode:
+                allOf:
+                  - type: integer
+                    description: HTTP status code
+                    example: 400
+              nextActions:
+                allOf:
+                  - type: string
+                    description: Suggested action to resolve the error
+                    example: Check your request parameters
+            refIdentifier: '#/components/schemas/ErrorResponse'
+            requiredProperties:
+              - error
+              - message
+              - statusCode
+        examples:
+          example:
+            value:
+              error: OBJECT_NOT_FOUND
+              message: Object 'user123.jpg' not found in bucket 'avatars'
+              statusCode: 404
+              nextActions: Check the bucket and key combination
+        description: Object not found
+  deprecated: false
+  type: path
+components:
+  schemas: {}
+
+````
+
+# Get Download Strategy (Direct or Presigned URL)
+
+> Returns download strategy based on storage backend and bucket visibility.
+- S3 with public bucket: Direct URLs (no presigning, better performance)
+- S3 with private bucket: Presigned URLs with expiration
+- Local storage: Always direct endpoints
+
+
+## OpenAPI
+
+````yaml api-reference/storage.yaml post /api/storage/buckets/{bucketName}/objects/{objectKey}/download-strategy
+paths:
+  path: /api/storage/buckets/{bucketName}/objects/{objectKey}/download-strategy
+  method: post
+  request:
+    security:
+      - title: apiKey
+        parameters:
+          query: {}
+          header:
+            x-api-key:
+              type: apiKey
+          cookie: {}
+    parameters:
+      path:
+        bucketName:
+          schema:
+            - type: string
+              required: true
+        objectKey:
+          schema:
+            - type: string
+              required: true
+      query: {}
+      header: {}
+      cookie: {}
+    body:
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              expiresIn:
+                allOf:
+                  - type: integer
+                    description: URL expiration time in seconds (default 3600)
+                    example: 3600
+                    default: 3600
+        examples:
+          example:
+            value:
+              expiresIn: 3600
+  response:
+    '200':
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              method:
+                allOf:
+                  - type: string
+                    enum:
+                      - presigned
+                      - direct
+                    description: >
+                      Download method:
+
+                      - `direct`: Direct URL access (S3 public buckets or local
+                      storage)
+
+                      - `presigned`: Secure URL with signature and expiration
+                      (S3 private buckets)
+                    example: direct
+              url:
+                allOf:
+                  - type: string
+                    description: URL to download the file from
+                    example: >-
+                      https://s3-bucket.s3.us-east-2.amazonaws.com/app-key/public-assets/logo.png
+              expiresAt:
+                allOf:
+                  - type: string
+                    format: date-time
+                    description: >-
+                      Expiration time for presigned URLs (only present when
+                      method is 'presigned')
+                    example: '2025-09-05T01:00:00Z'
+              headers:
+                allOf:
+                  - type: object
+                    description: Optional headers to include in the download request
+                    additionalProperties: true
+            refIdentifier: '#/components/schemas/DownloadStrategy'
+            requiredProperties:
+              - method
+              - url
+        examples:
+          s3-public:
+            summary: S3 Public Bucket Response
+            value:
+              method: direct
+              url: >-
+                https://s3-bucket.s3.us-east-2.amazonaws.com/app-key/public-assets/logo.png
+          s3-private:
+            summary: S3 Private Bucket Response
+            value:
+              method: presigned
+              url: >-
+                https://s3-bucket.s3.us-east-2.amazonaws.com/app-key/avatars/profile.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=...
+              expiresAt: '2025-09-05T01:00:00Z'
+          local:
+            summary: Local Storage Response
+            value:
+              method: direct
+              url: /api/storage/buckets/avatars/objects/profile-photo.jpg
+        description: Download strategy details
+    '404':
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              error:
+                allOf:
+                  - type: string
+                    description: Error code for programmatic handling
+                    example: VALIDATION_ERROR
+              message:
+                allOf:
+                  - type: string
+                    description: Human-readable error message
+                    example: Invalid request
+              statusCode:
+                allOf:
+                  - type: integer
+                    description: HTTP status code
+                    example: 400
+              nextActions:
+                allOf:
+                  - type: string
+                    description: Suggested action to resolve the error
+                    example: Check your request parameters
+            refIdentifier: '#/components/schemas/ErrorResponse'
+            requiredProperties:
+              - error
+              - message
+              - statusCode
+        examples:
+          example:
+            value:
+              error: VALIDATION_ERROR
+              message: Invalid request
+              statusCode: 400
+              nextActions: Check your request parameters
+        description: Object not found
+  deprecated: false
+  type: path
+components:
+  schemas: {}
+
+````
+
+# Query Records
+
+> Query records from a table with filtering, sorting, and pagination
+
+## OpenAPI
+
+````yaml api-reference/records.yaml get /api/database/records/{tableName}
+paths:
+  path: /api/database/records/{tableName}
+  method: get
+  request:
+    security:
+      - title: bearerAuth
+        parameters:
+          query: {}
+          header:
+            Authorization:
+              type: http
+              scheme: bearer
+          cookie: {}
+      - title: apiKey
+        parameters:
+          query: {}
+          header:
+            x-api-key:
+              type: apiKey
+          cookie: {}
+    parameters:
+      path:
+        tableName:
+          schema:
+            - type: string
+              required: true
+              description: Name of the table to query
+      query:
+        limit:
+          schema:
+            - type: integer
+              description: Maximum number of records to return
+              maximum: 1000
+              minimum: 1
+              default: 100
+        offset:
+          schema:
+            - type: integer
+              description: Number of records to skip for pagination
+              minimum: 0
+              default: 0
+        order:
+          schema:
+            - type: string
+              description: Sort order (e.g., "createdAt.desc", "name.asc")
+        select:
+          schema:
+            - type: string
+              description: Comma-separated list of columns to return
+        field:
+          schema:
+            - type: string
+              description: Filter by field value (e.g., "?status=eq.active", "?age=gt.18")
+      header: {}
+      cookie: {}
+    body: {}
+  response:
+    '200':
+      application/json:
+        schemaArray:
+          - type: array
+            items:
+              allOf:
+                - type: object
+                  additionalProperties: true
+        examples:
+          example:
+            value:
+              - id: 248373e1-0aea-45ce-8844-5ef259203749
+                name: John Doe
+                email: john@example.com
+                createdAt: '2025-07-18T05:37:24.338Z'
+                updatedAt: '2025-07-18T05:37:24.338Z'
+              - id: 348373e1-0aea-45ce-8844-5ef259203750
+                name: Jane Smith
+                email: jane@example.com
+                createdAt: '2025-07-19T08:15:10.123Z'
+                updatedAt: '2025-07-19T08:15:10.123Z'
+        description: List of records
+    '400':
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              error:
+                allOf:
+                  - &ref_0
+                    type: string
+                    description: Error code for programmatic handling
+                    example: VALIDATION_ERROR
+              message:
+                allOf:
+                  - &ref_1
+                    type: string
+                    description: Human-readable error message
+                    example: Invalid input data
+              statusCode:
+                allOf:
+                  - &ref_2
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+              nextActions:
+                allOf:
+                  - &ref_3
+                    type: string
+                    description: Suggested action to resolve the error
+                    example: Check the request body format
+            refIdentifier: '#/components/schemas/ErrorResponse'
+            requiredProperties: &ref_4
+              - error
+              - message
+              - statusCode
+        examples:
+          example:
+            value:
+              error: INVALID_QUERY
+              message: Invalid filter syntax
+              statusCode: 400
+              nextActions: Check PostgREST filter documentation
+        description: Invalid query parameters
+    '404':
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              error:
+                allOf:
+                  - *ref_0
+              message:
+                allOf:
+                  - *ref_1
+              statusCode:
+                allOf:
+                  - *ref_2
+              nextActions:
+                allOf:
+                  - *ref_3
+            refIdentifier: '#/components/schemas/ErrorResponse'
+            requiredProperties: *ref_4
+        examples:
+          example:
+            value:
+              error: TABLE_NOT_FOUND
+              message: Table 'nonexistent' does not exist
+              statusCode: 404
+              nextActions: Check table name and try again
+        description: Table not found
+  deprecated: false
+  type: path
+components:
+  schemas: {}
+
+````
+
+# Create Records
+
+> Create one or more records. Request body MUST be an array.
+
+## OpenAPI
+
+````yaml api-reference/records.yaml post /api/database/records/{tableName}
+paths:
+  path: /api/database/records/{tableName}
+  method: post
+  request:
+    security:
+      - title: bearerAuth
+        parameters:
+          query: {}
+          header:
+            Authorization:
+              type: http
+              scheme: bearer
+          cookie: {}
+      - title: apiKey
+        parameters:
+          query: {}
+          header:
+            x-api-key:
+              type: apiKey
+          cookie: {}
+    parameters:
+      path:
+        tableName:
+          schema:
+            - type: string
+              required: true
+              description: Name of the table
+      query: {}
+      header:
+        Prefer:
+          schema:
+            - type: enum<string>
+              enum:
+                - return=representation
+              description: >-
+                Include to return created records in response (otherwise returns
+                empty array)
+      cookie: {}
+    body:
+      application/json:
+        schemaArray:
+          - type: array
+            items:
+              allOf:
+                - type: object
+                  additionalProperties: true
+            required: true
+            minItems: 1
+        examples:
+          example:
+            value:
+              - name: John Doe
+                email: john@example.com
+                age: 30
+  response:
+    '201':
+      application/json:
+        schemaArray:
+          - type: array
+            items:
+              allOf:
+                - type: object
+                  additionalProperties: true
+        examples:
+          without_prefer:
+            summary: Response without Prefer header
+            value: []
+          with_prefer:
+            summary: 'Response with Prefer: return=representation'
+            value:
+              - id: 248373e1-0aea-45ce-8844-5ef259203749
+                name: John Doe
+                email: john@example.com
+                age: 30
+                createdAt: '2025-07-18T05:37:24.338Z'
+                updatedAt: '2025-07-18T05:37:24.338Z'
+        description: Records created
+    '400':
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              error:
+                allOf:
+                  - &ref_0
+                    type: string
+                    description: Error code for programmatic handling
+                    example: VALIDATION_ERROR
+              message:
+                allOf:
+                  - &ref_1
+                    type: string
+                    description: Human-readable error message
+                    example: Invalid input data
+              statusCode:
+                allOf:
+                  - &ref_2
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+              nextActions:
+                allOf:
+                  - &ref_3
+                    type: string
+                    description: Suggested action to resolve the error
+                    example: Check the request body format
+            refIdentifier: '#/components/schemas/ErrorResponse'
+            requiredProperties: &ref_4
+              - error
+              - message
+              - statusCode
+        examples:
+          example:
+            value:
+              error: VALIDATION_ERROR
+              message: 'Invalid field type: expected integer for ''age'''
+              statusCode: 400
+              nextActions: Ensure field types match the table schema
+        description: Invalid input
+    '404':
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              error:
+                allOf:
+                  - *ref_0
+              message:
+                allOf:
+                  - *ref_1
+              statusCode:
+                allOf:
+                  - *ref_2
+              nextActions:
+                allOf:
+                  - *ref_3
+            refIdentifier: '#/components/schemas/ErrorResponse'
+            requiredProperties: *ref_4
+        examples:
+          example:
+            value:
+              error: TABLE_NOT_FOUND
+              message: Table 'nonexistent' does not exist
+              statusCode: 404
+              nextActions: Create the table first
+        description: Table not found
+  deprecated: false
+  type: path
+components:
+  schemas: {}
+
+````
+
+# Delete Records
+
+> Delete records matching query filters
+
+## OpenAPI
+
+````yaml api-reference/records.yaml delete /api/database/records/{tableName}
+paths:
+  path: /api/database/records/{tableName}
+  method: delete
+  request:
+    security:
+      - title: bearerAuth
+        parameters:
+          query: {}
+          header:
+            Authorization:
+              type: http
+              scheme: bearer
+          cookie: {}
+      - title: apiKey
+        parameters:
+          query: {}
+          header:
+            x-api-key:
+              type: apiKey
+          cookie: {}
+    parameters:
+      path:
+        tableName:
+          schema:
+            - type: string
+              required: true
+              description: Name of the table
+      query:
+        id:
+          schema:
+            - type: string
+              description: >-
+                Filter records by ID (e.g.,
+                "?id=eq.123e4567-e89b-12d3-a456-426614174000")
+      header:
+        Prefer:
+          schema:
+            - type: enum<string>
+              enum:
+                - return=representation
+              description: Include to return deleted records in response
+      cookie: {}
+    body: {}
+  response:
+    '200':
+      application/json:
+        schemaArray:
+          - type: array
+            items:
+              allOf:
+                - type: object
+                  additionalProperties: true
+        examples:
+          records_deleted:
+            summary: Records were deleted
+            value:
+              - id: 123e4567-e89b-12d3-a456-426614174000
+                name: Deleted User
+                createdAt: '2025-01-01T00:00:00Z'
+                updatedAt: '2025-01-21T11:00:00Z'
+          no_records:
+            summary: No records found to delete
+            value: []
+        description: Records deleted (with Prefer header)
+    '204':
+      _mintlify/placeholder:
+        schemaArray:
+          - type: any
+            description: Records deleted (without Prefer header)
+        examples: {}
+        description: Records deleted (without Prefer header)
+  deprecated: false
+  type: path
+components:
+  schemas: {}
+
+````
+
+# Update Records
+
+> Update records matching query filters
+
+## OpenAPI
+
+````yaml api-reference/records.yaml patch /api/database/records/{tableName}
+paths:
+  path: /api/database/records/{tableName}
+  method: patch
+  request:
+    security:
+      - title: bearerAuth
+        parameters:
+          query: {}
+          header:
+            Authorization:
+              type: http
+              scheme: bearer
+          cookie: {}
+      - title: apiKey
+        parameters:
+          query: {}
+          header:
+            x-api-key:
+              type: apiKey
+          cookie: {}
+    parameters:
+      path:
+        tableName:
+          schema:
+            - type: string
+              required: true
+              description: Name of the table
+      query:
+        id:
+          schema:
+            - type: string
+              description: >-
+                Filter records by ID (e.g.,
+                "?id=eq.123e4567-e89b-12d3-a456-426614174000")
+      header:
+        Prefer:
+          schema:
+            - type: enum<string>
+              enum:
+                - return=representation
+              description: Include to return updated records in response
+      cookie: {}
+    body:
+      application/json:
+        schemaArray:
+          - type: object
+            properties: {}
+            required: true
+        examples:
+          example:
+            value:
+              name: Jane Doe
+              email: jane.doe@example.com
+  response:
+    '200':
+      application/json:
+        schemaArray:
+          - type: array
+            items:
+              allOf:
+                - type: object
+                  additionalProperties: true
+        examples:
+          without_prefer:
+            summary: Response without Prefer header
+            value: []
+          with_prefer:
+            summary: 'Response with Prefer: return=representation'
+            value:
+              - id: 123e4567-e89b-12d3-a456-426614174000
+                name: Jane Doe
+                email: jane.doe@example.com
+                createdAt: '2025-01-01T00:00:00Z'
+                updatedAt: '2025-01-21T11:00:00Z'
+        description: Records updated
+    '400':
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              error:
+                allOf:
+                  - type: string
+                    description: Error code for programmatic handling
+                    example: VALIDATION_ERROR
+              message:
+                allOf:
+                  - type: string
+                    description: Human-readable error message
+                    example: Invalid input data
+              statusCode:
+                allOf:
+                  - type: integer
+                    description: HTTP status code
+                    example: 400
+              nextActions:
+                allOf:
+                  - type: string
+                    description: Suggested action to resolve the error
+                    example: Check the request body format
+            refIdentifier: '#/components/schemas/ErrorResponse'
+            requiredProperties:
+              - error
+              - message
+              - statusCode
+        examples:
+          example:
+            value:
+              error: VALIDATION_ERROR
+              message: Invalid field type
+              statusCode: 400
+              nextActions: Check field types match table schema
+        description: Invalid input
+    '404':
+      application/json:
+        schemaArray:
+          - type: array
+            items:
+              allOf:
+                - type: object
+        examples:
+          example:
+            value: []
+        description: No records found to update
+  deprecated: false
+  type: path
+components:
+  schemas: {}
+
+````
+
+# Execute function
+
+> Execute a function with the provided request
+
+## OpenAPI
+
+````yaml api-reference/functions.yaml post /functions/{slug}
+paths:
+  path: /functions/{slug}
+  method: post
+  request:
+    security: []
+    parameters:
+      path:
+        slug:
+          schema:
+            - type: string
+              required: true
+              description: Function slug identifier
+      query: {}
+      header: {}
+      cookie: {}
+    body:
+      application/json:
+        schemaArray:
+          - type: object
+            properties: {}
+            required: false
+        examples:
+          example:
+            value:
+              name: John
+              age: 30
+  response:
+    '200':
+      '*/*':
+        schemaArray:
+          - type: object
+            properties: {}
+        examples:
+          example:
+            value:
+              message: Hello, John!
+        description: Function executed successfully
+    '404':
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              error:
+                allOf:
+                  - &ref_0
+                    type: string
+                    description: Error message
+              details:
+                allOf:
+                  - &ref_1
+                    oneOf:
+                      - type: string
+                      - type: array
+                        items:
+                          type: object
+                      - type: object
+                    description: Additional error details
+              message:
+                allOf:
+                  - &ref_2
+                    type: string
+                    description: Detailed error message
+              pattern:
+                allOf:
+                  - &ref_3
+                    type: string
+                    description: >-
+                      Pattern that caused validation failure (for dangerous code
+                      detection)
+            refIdentifier: '#/components/schemas/ErrorResponse'
+        examples:
+          example:
+            value:
+              error: Function not found or not active
+        description: Function not found or not active
+    '500':
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              error:
+                allOf:
+                  - *ref_0
+              details:
+                allOf:
+                  - *ref_1
+              message:
+                allOf:
+                  - *ref_2
+              pattern:
+                allOf:
+                  - *ref_3
+            refIdentifier: '#/components/schemas/ErrorResponse'
+        examples:
+          example:
+            value:
+              error: Function execution failed
+              message: 'TypeError: Cannot read property ''name'' of undefined'
+        description: Function execution error
+  deprecated: false
+  type: path
+components:
+  schemas: {}
+
+````
+
+# Register new user
+
+> Creates a new user account
+
+## OpenAPI
+
+````yaml api-reference/auth.yaml post /api/auth/users
+paths:
+  path: /api/auth/users
+  method: post
+  request:
+    security: []
+    parameters:
+      path: {}
+      query: {}
+      header: {}
+      cookie: {}
+    body:
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              email:
+                allOf:
+                  - type: string
+                    format: email
+                    example: user@example.com
+              password:
+                allOf:
+                  - type: string
+                    minLength: 8
+                    example: securepassword123
+              name:
+                allOf:
+                  - type: string
+                    example: John Doe
+            required: true
+            requiredProperties:
+              - email
+              - password
+        examples:
+          example:
+            value:
+              email: user@example.com
+              password: securepassword123
+              name: John Doe
+  response:
+    '201':
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              user:
+                allOf:
+                  - type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      email:
+                        type: string
+                      name:
+                        type: string
+                      emailVerified:
+                        type: boolean
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+              accessToken:
+                allOf:
+                  - type: string
+                    description: JWT authentication token
+        examples:
+          example:
+            value:
+              user:
+                id: 3c90c3cc-0d44-4b50-8888-8dd25736052a
+                email: <string>
+                name: <string>
+                emailVerified: true
+                createdAt: '2023-11-07T05:31:56Z'
+                updatedAt: '2023-11-07T05:31:56Z'
+              accessToken: <string>
+        description: User created successfully
+    '400':
+      _mintlify/placeholder:
+        schemaArray:
+          - type: any
+            description: Invalid request
+        examples: {}
+        description: Invalid request
+    '409':
+      _mintlify/placeholder:
+        schemaArray:
+          - type: any
+            description: User already exists
+        examples: {}
+        description: User already exists
+  deprecated: false
+  type: path
+components:
+  schemas: {}
+
+````
+
+# User login
+
+> Authenticates user and returns access token
+
+## OpenAPI
+
+````yaml api-reference/auth.yaml post /api/auth/sessions
+paths:
+  path: /api/auth/sessions
+  method: post
+  request:
+    security: []
+    parameters:
+      path: {}
+      query: {}
+      header: {}
+      cookie: {}
+    body:
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              email:
+                allOf:
+                  - type: string
+                    format: email
+              password:
+                allOf:
+                  - type: string
+            required: true
+            requiredProperties:
+              - email
+              - password
+        examples:
+          example:
+            value:
+              email: jsmith@example.com
+              password: <string>
+  response:
+    '200':
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              user:
+                allOf:
+                  - type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      email:
+                        type: string
+                      name:
+                        type: string
+                      emailVerified:
+                        type: boolean
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+              accessToken:
+                allOf:
+                  - type: string
+        examples:
+          example:
+            value:
+              user:
+                id: 3c90c3cc-0d44-4b50-8888-8dd25736052a
+                email: <string>
+                name: <string>
+                emailVerified: true
+                createdAt: '2023-11-07T05:31:56Z'
+                updatedAt: '2023-11-07T05:31:56Z'
+              accessToken: <string>
+        description: Login successful
+    '401':
+      _mintlify/placeholder:
+        schemaArray:
+          - type: any
+            description: Invalid credentials
+        examples: {}
+        description: Invalid credentials
+  deprecated: false
+  type: path
+components:
+  schemas: {}
+
+````
+
+# Get current user
+
+> Returns the currently authenticated user
+
+## OpenAPI
+
+````yaml api-reference/auth.yaml get /api/auth/sessions/current
+paths:
+  path: /api/auth/sessions/current
+  method: get
+  request:
+    security:
+      - title: bearerAuth
+        parameters:
+          query: {}
+          header:
+            Authorization:
+              type: http
+              scheme: bearer
+          cookie: {}
+    parameters:
+      path: {}
+      query: {}
+      header: {}
+      cookie: {}
+    body: {}
+  response:
+    '200':
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              user:
+                allOf:
+                  - type: object
+                    properties:
+                      id:
+                        type: string
+                      email:
+                        type: string
+                      name:
+                        type: string
+                      role:
+                        type: string
+        examples:
+          example:
+            value:
+              user:
+                id: <string>
+                email: <string>
+                name: <string>
+                role: <string>
+        description: Current user info
+    '401':
+      _mintlify/placeholder:
+        schemaArray:
+          - type: any
+            description: Unauthorized
+        examples: {}
+        description: Unauthorized
+  deprecated: false
+  type: path
+components:
+  schemas: {}
+
+````
+# Get current user
+
+> Returns the currently authenticated user
+
+## OpenAPI
+
+````yaml api-reference/auth.yaml get /api/auth/sessions/current
+paths:
+  path: /api/auth/sessions/current
+  method: get
+  request:
+    security:
+      - title: bearerAuth
+        parameters:
+          query: {}
+          header:
+            Authorization:
+              type: http
+              scheme: bearer
+          cookie: {}
+    parameters:
+      path: {}
+      query: {}
+      header: {}
+      cookie: {}
+    body: {}
+  response:
+    '200':
+      application/json:
+        schemaArray:
+          - type: object
+            properties:
+              user:
+                allOf:
+                  - type: object
+                    properties:
+                      id:
+                        type: string
+                      email:
+                        type: string
+                      name:
+                        type: string
+                      role:
+                        type: string
+        examples:
+          example:
+            value:
+              user:
+                id: <string>
+                email: <string>
+                name: <string>
+                role: <string>
+        description: Current user info
+    '401':
+      _mintlify/placeholder:
+        schemaArray:
+          - type: any
+            description: Unauthorized
+        examples: {}
+        description: Unauthorized
+  deprecated: false
+  type: path
+components:
+  schemas: {}
+
+````
+# Initiate Google OAuth flow
+
+## OpenAPI
+
+````yaml api-reference/auth.yaml get /api/auth/oauth/google
+paths:
+  path: /api/auth/oauth/google
+  method: get
+  request:
+    security: []
+    parameters:
+      path: {}
+      query:
+        redirect_uri:
+          schema:
+            - type: string
+              description: URL to redirect after authentication
+              format: uri
+      header: {}
+      cookie: {}
+    body: {}
+  response:
+    '302':
+      _mintlify/placeholder:
+        schemaArray:
+          - type: any
+            description: Redirect to Google OAuth
+        examples: {}
+        description: Redirect to Google OAuth
+    '500':
+      _mintlify/placeholder:
+        schemaArray:
+          - type: any
+            description: OAuth not configured
+        examples: {}
+        description: OAuth not configured
+  deprecated: false
+  type: path
+components:
+  schemas: {}
+
+````
+
+# Initiate Google OAuth flow
+
+## OpenAPI
+
+````yaml api-reference/auth.yaml get /api/auth/oauth/google
+paths:
+  path: /api/auth/oauth/google
+  method: get
+  request:
+    security: []
+    parameters:
+      path: {}
+      query:
+        redirect_uri:
+          schema:
+            - type: string
+              description: URL to redirect after authentication
+              format: uri
+      header: {}
+      cookie: {}
+    body: {}
+  response:
+    '302':
+      _mintlify/placeholder:
+        schemaArray:
+          - type: any
+            description: Redirect to Google OAuth
+        examples: {}
+        description: Redirect to Google OAuth
+    '500':
+      _mintlify/placeholder:
+        schemaArray:
+          - type: any
+            description: OAuth not configured
+        examples: {}
+        description: OAuth not configured
+  deprecated: false
+  type: path
+components:
+  schemas: {}
+
+````

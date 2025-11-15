@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "206864492119",
+    "project_id": "gn07lq8qi3lcrqoop3f6i5bmsc9r7h",
+    "storage_bucket": "gn07lq8qi3lcrqoop3f6i5bmsc9r7h.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:206864492119:android:d3f0cf83aba5e35eb2a512",
+        "android_client_info": {
+          "package_name": "com.mycompany.CounterApp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7YjJmGTc9BsZNgV0gxIhslC6xL54kLy8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:206864492119:android:ee92fec1cad71b83b2a512",
+        "android_client_info": {
+          "package_name": "com.x16studios.swipzee"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7YjJmGTc9BsZNgV0gxIhslC6xL54kLy8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
