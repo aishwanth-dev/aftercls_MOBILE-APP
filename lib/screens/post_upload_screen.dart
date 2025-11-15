@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
+import 'dart:typed_data';
 import 'package:image_picker/image_picker.dart';
 import 'package:campus_pulse/models/user.dart';
 import 'package:campus_pulse/services/post_service.dart';
@@ -7,7 +7,6 @@ import 'package:campus_pulse/services/storage_service.dart';
 import 'package:campus_pulse/services/app_state_manager.dart';
 import 'package:campus_pulse/auth/auth_manager.dart';
 import 'package:campus_pulse/theme.dart';
-import 'dart:io' show File;
 
 class PostUploadScreen extends StatefulWidget {
   const PostUploadScreen({super.key});
@@ -18,7 +17,6 @@ class PostUploadScreen extends StatefulWidget {
 
 class _PostUploadScreenState extends State<PostUploadScreen> {
   final _challengeController = TextEditingController();
-  File? _selectedImage;
   Uint8List? _selectedBytes;
   bool _isUploading = false;
   User? _currentUser;
@@ -74,21 +72,12 @@ class _PostUploadScreenState extends State<PostUploadScreen> {
       );
 
       if (image != null) {
-        // Image selected
-        if (kIsWeb) {
-          final bytes = await image.readAsBytes();
-          if (!mounted) return;
-          setState(() {
-            _selectedBytes = bytes;
-            _selectedImage = null;
-          });
-        } else {
-          if (!mounted) return;
-          setState(() {
-            _selectedImage = File(image.path);
-            _selectedBytes = null;
-          });
-        }
+        // Read bytes for both mobile and web
+        final bytes = await image.readAsBytes();
+        if (!mounted) return;
+        setState(() {
+          _selectedBytes = bytes;
+        });
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -112,7 +101,7 @@ class _PostUploadScreenState extends State<PostUploadScreen> {
       return;
     }
 
-    if (_selectedImage == null && _selectedBytes == null) {
+    if (_selectedBytes == null) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -158,13 +147,8 @@ class _PostUploadScreenState extends State<PostUploadScreen> {
     try {
       String? imageUrl;
 
-      // Get the bytes - works for both web and mobile
-      Uint8List? bytes;
-      if (kIsWeb && _selectedBytes != null) {
-        bytes = _selectedBytes;
-      } else if (!kIsWeb && _selectedImage != null) {
-        bytes = await _selectedImage!.readAsBytes();
-      }
+      // Use the selected bytes for upload
+      final Uint8List? bytes = _selectedBytes;
 
       if (bytes == null) {
         throw Exception('No image data available');
@@ -289,17 +273,11 @@ class _PostUploadScreenState extends State<PostUploadScreen> {
                 child: _selectedImage != null || _selectedBytes != null
                     ? ClipRRect(
                         borderRadius: BorderRadius.circular(14),
-                        child: kIsWeb
-                            ? Image.memory(
-                                _selectedBytes!,
-                                fit: BoxFit.cover,
-                                width: double.infinity,
-                              )
-                            : Image.file(
-                                _selectedImage!,
-                                fit: BoxFit.cover,
-                                width: double.infinity,
-                              ),
+                        child: Image.memory(
+                          _selectedBytes!,
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                        ),
                       )
                     : Column(
                         mainAxisAlignment: MainAxisAlignment.center,
