@@ -270,7 +270,7 @@ class _PostUploadScreenState extends State<PostUploadScreen> {
                     style: BorderStyle.solid,
                   ),
                 ),
-                child: _selectedImage != null || _selectedBytes != null
+                child: _selectedBytes != null
                     ? ClipRRect(
                         borderRadius: BorderRadius.circular(14),
                         child: Image.memory(
