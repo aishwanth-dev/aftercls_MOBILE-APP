@@ -11,8 +11,13 @@ fi
 # Ensure flutter binary is on PATH
 export PATH="$FLUTTER_DIR/bin:$PATH"
 chmod +x "$FLUTTER_DIR/bin/flutter" || true
+export CI=true
+# Silence git's ownership checks inside Vercel's build environment
+git config --global --add safe.directory "$FLUTTER_DIR" || true
 "$FLUTTER_DIR/bin/flutter" --version
+"$FLUTTER_DIR/bin/flutter" config --no-analytics
 "$FLUTTER_DIR/bin/flutter" config --enable-web
+"$FLUTTER_DIR/bin/flutter" precache --web
 
 # Fetch dependencies
 "$FLUTTER_DIR/bin/flutter" pub get
